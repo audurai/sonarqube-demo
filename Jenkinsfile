@@ -11,35 +11,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Build Stage'
+                sh './mvn clean package'
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploy Stage'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Test Stage'
-            }
-        }
-        stage('Release') {
-            steps {
-                echo 'Release Stage'
-            }
-        }
-		stage('Sonarqube_new') {
+		stage('Sonarqube') {
             steps {
                 echo 'Sonarqube new Stage'
-				mvn sonar:sonar
-				}
-            }
-        }
-        stage('Sonarqube_old') {
-            steps {
-                echo 'Sonarqube old Stage'
-				withSonarQubeEnv(installationName: 'sonarqube-demo-server') {
-					sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+				sh './mvn clean install sonar:sonar -Dsonar.login=cbacf5dd948bbb608a432a7b0faa354ff4360ce7'
 				}
             }
         }
