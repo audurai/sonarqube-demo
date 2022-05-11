@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -14,11 +13,9 @@ pipeline {
                 sh './mvn clean package'
             }
         }
-		stage('Sonarqube') {
+        stage('SonarTest') {
             steps {
-                echo 'Sonarqube new Stage'
-				sh './mvn clean install sonar:sonar -Dsonar.login=cbacf5dd948bbb608a432a7b0faa354ff4360ce7'
-				}
+                echo 'Sonar Testing Stage'
             }
         }
     }
